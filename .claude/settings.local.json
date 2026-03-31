@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:pypi.org)",
+      "WebFetch(domain:community.toggl.com)",
+      "WebFetch(domain:developers.track.toggl.com)",
+      "WebFetch(domain:engineering.toggl.com)",
+      "WebFetch(domain:modelcontextprotocol.github.io)",
+      "WebFetch(domain:py.sdk.modelcontextprotocol.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(pip show:*)",
+      "Bash(rm -f pyproject.toml.bak)",
+      "Bash(uv sync:*)",
+      "Bash(uv run:*)"
+    ]
+  }
+}
