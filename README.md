@@ -1,5 +1,9 @@
 # toggl-track-mcp
 
+[![PyPI version](https://img.shields.io/pypi/v/toggl-track-mcp)](https://pypi.org/project/toggl-track-mcp/)
+[![Python](https://img.shields.io/pypi/pyversions/toggl-track-mcp)](https://pypi.org/project/toggl-track-mcp/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for [Toggl Track](https://toggl.com/track/) — the popular time tracking tool.
 
 This server gives AI assistants (Claude Desktop, Claude Code, Cursor, etc.) full control over your Toggl Track account: start/stop timers, manage projects, clients, tags, tasks, and pull reports — all through natural language.
@@ -21,13 +25,25 @@ This server gives AI assistants (Claude Desktop, Claude Code, Cursor, etc.) full
 
 ## Installation
 
-### Option A: Install from GitHub (recommended)
+### Option A: pip install from PyPI (recommended)
+
+```bash
+pip install toggl-track-mcp
+```
+
+### Option B: Run directly with uvx (no install needed)
+
+```bash
+uvx toggl-track-mcp
+```
+
+### Option C: Install from GitHub (latest)
 
 ```bash
 pip install git+https://github.com/dovahkaal/TogglTrackMcp.git
 ```
 
-### Option B: Clone and install locally
+### Option D: Clone and install locally (for development)
 
 ```bash
 git clone https://github.com/dovahkaal/TogglTrackMcp.git
@@ -51,12 +67,14 @@ Add this to your `claude_desktop_config.json`:
 **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 
+#### Using PyPI install (simplest)
+
 ```json
 {
   "mcpServers": {
     "toggl-track": {
-      "command": "uv",
-      "args": ["--directory", "C:\\path\\to\\TogglTrackMcp", "run", "toggl-track-mcp"],
+      "command": "uvx",
+      "args": ["toggl-track-mcp"],
       "env": {
         "TOGGL_API_TOKEN": "your-api-token-here"
       }
@@ -65,21 +83,41 @@ Add this to your `claude_desktop_config.json`:
 }
 ```
 
-> Replace `C:\\path\\to\\TogglTrackMcp` with the actual path where you cloned the repo.
+#### Using a local clone
 
-After saving, **restart Claude Desktop**. You should see the Toggl Track tools appear in the tools menu.
+```json
+{
+  "mcpServers": {
+    "toggl-track": {
+      "command": "uv",
+      "args": ["--directory", "/path/to/TogglTrackMcp", "run", "toggl-track-mcp"],
+      "env": {
+        "TOGGL_API_TOKEN": "your-api-token-here"
+      }
+    }
+  }
+}
+```
+
+> Replace `/path/to/TogglTrackMcp` with the actual path where you cloned the repo. On Windows use double backslashes: `C:\\Users\\you\\TogglTrackMcp`.
+
+After saving, **restart Claude Desktop**. You should see the Toggl Track tools appear in the tools menu (hammer icon).
 
 ### Claude Code
 
 ```bash
-claude mcp add toggl-track -e TOGGL_API_TOKEN=your-api-token-here -- uv --directory /path/to/TogglTrackMcp run toggl-track-mcp
+claude mcp add toggl-track -e TOGGL_API_TOKEN=your-api-token-here -- uvx toggl-track-mcp
 ```
+
+### Cursor / Other MCP Clients
+
+Use the same configuration pattern — set `command` to `uvx`, `args` to `["toggl-track-mcp"]`, and pass `TOGGL_API_TOKEN` in the environment.
 
 ### Running Standalone
 
 ```bash
 export TOGGL_API_TOKEN="your-api-token-here"
-uv run toggl-track-mcp
+uvx toggl-track-mcp
 ```
 
 The server communicates over stdio using the MCP protocol — it's meant to be launched by an MCP client, not used directly in a terminal.
@@ -214,6 +252,10 @@ uv run pytest
 # Run tests with verbose output
 uv run pytest -v
 ```
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests at [github.com/dovahkaal/TogglTrackMcp](https://github.com/dovahkaal/TogglTrackMcp).
 
 ## License
 
